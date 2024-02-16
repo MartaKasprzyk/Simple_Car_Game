@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 import random
 
-size = width, height = (400, 800)
-road_width = int(width/1.5)
+size = width, height = (800, 800)
+road_width = int(width/1.6)
 roadmark = int(width/80)
 right_lane = width/2 + road_width/4
 left_lane = width/2 - road_width/4
@@ -17,11 +17,11 @@ screen.fill((128, 255, 128))
 
 pygame.display.update()
 
-car1 = pygame.image.load("car_green.png")
+car1 = pygame.image.load("car1.png")
 car1_loc = car1.get_rect()
 car1_loc.center = right_lane, height*0.8
 
-car2 = pygame.image.load("car_red.png")
+car2 = pygame.image.load("car2.png")
 car2_loc = car2.get_rect()
 car2_loc.center = left_lane, height*0.2
 
@@ -33,6 +33,8 @@ while running:
             car2_loc.center = right_lane, -200
         else:
             car2_loc.center = left_lane, -200
+
+
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
