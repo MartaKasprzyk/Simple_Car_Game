@@ -34,6 +34,9 @@ while running:
         else:
             car2_loc.center = left_lane, -200
 
+    if car1_loc[0] == car2_loc[0] and car2_loc[1] > car1_loc[1] - 250:
+        print("GAME OVER!")
+        break
 
     for event in pygame.event.get():
         if event.type == QUIT:
