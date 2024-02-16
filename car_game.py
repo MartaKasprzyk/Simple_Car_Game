@@ -17,10 +17,23 @@ pygame.draw.rect(screen, (255, 255, 255), (width/2+road_width/2 - roadmark*3, 0,
 
 pygame.display.update()
 
+car1 = pygame.image.load("car_green.png")
+car1_loc = car1.get_rect()
+car1_loc.center = width/2 + road_width/4, height*0.8
+
+car2 = pygame.image.load("car_red.png")
+car2_loc = car2.get_rect()
+car2_loc.center = width/2 - road_width/4, height*0.2
+
+
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+
+    screen.blit(car1, car1_loc)
+    screen.blit(car2, car2_loc)
+    pygame.display.update()
 
 
 pygame.quit()
