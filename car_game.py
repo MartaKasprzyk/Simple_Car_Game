@@ -36,6 +36,7 @@ bush_loc.center = width * 0.9, height * 0.2
 bush_loc1.center = width * 0.9, height * 0.6
 
 counter = 0
+staying_on_the_road = 1
 
 font = pygame.font.SysFont('arial', 36)
 text = font.render('GAME OVER', True, (255, 255, 255))
@@ -58,6 +59,7 @@ while running:
         if random.randint(0, 1) == 0:
             car2_loc.center = right_lane, -200
             rock_loc.center = width / 8, height * 0.2
+            bush_loc.center = width * 0.9, -100
         else:
             car2_loc.center = left_lane, -200
             rock_loc.center = width / 8, height * 0.8
@@ -77,14 +79,20 @@ while running:
         game_over()
         break
 
+    if staying_on_the_road < 0 or staying_on_the_road > 1:
+        game_over()
+        break
+
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
         if event.type == KEYDOWN:
             if event.key in [K_a, K_LEFT]:
                 car1_loc = car1_loc.move([-int(road_width / 2), 0])
+                staying_on_the_road -= 1
             if event.key in [K_d, K_RIGHT]:
                 car1_loc = car1_loc.move([int(road_width / 2), 0])
+                staying_on_the_road += 1
 
     pygame.draw.rect(screen, (128, 255, 128), (width / 4 - road_width / 2, 0, road_width, height))
     pygame.draw.rect(screen, (128, 255, 128), (width / 4 + road_width / 2, 0, road_width, height))
