@@ -42,7 +42,7 @@ text = font.render('GAME OVER', True, (255, 255, 255))
 text_loc = text.get_rect()
 text_loc.center = width / 2, height / 2
 
-game_over_sound = pygame.mixer.Sound("sound of your choice")
+game_over_sound = pygame.mixer.Sound("mixkit-losing-bleeps-2026.wav") #sound of your choice
 
 while running:
     counter += 1
@@ -64,13 +64,17 @@ while running:
             bush_loc.center = width * 0.9, -100
             bush_loc1.center = width * 0.9, -300
 
-    if car1_loc[0] == car2_loc[0] and car2_loc[1] > car1_loc[1] - 250:
+    def game_over():
         screen.fill((0, 0, 0))
         screen.blit(text, text_loc)
         pygame.display.update()
         game_over_sound.play()
         pygame.time.wait(600)
         print("GAME OVER!")
+
+
+    if car1_loc[0] == car2_loc[0] and car2_loc[1] > car1_loc[1] - 250:
+        game_over()
         break
 
     for event in pygame.event.get():
