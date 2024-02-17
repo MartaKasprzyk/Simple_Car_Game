@@ -39,9 +39,6 @@ counter = 0
 staying_on_the_road = 1
 
 font = pygame.font.SysFont('arial', 36)
-text = font.render('GAME OVER', True, (255, 255, 255))
-text_loc = text.get_rect()
-text_loc.center = width / 2, height / 2
 
 game_over_sound = pygame.mixer.Sound("mixkit-losing-bleeps-2026.wav") #sound of your choice
 
@@ -68,11 +65,17 @@ while running:
 
     def game_over():
         screen.fill((0, 0, 0))
-        screen.blit(text, text_loc)
-        pygame.display.update()
+        show_message("GAME OVER")
         game_over_sound.play()
         pygame.time.wait(600)
         print("GAME OVER!")
+
+    def show_message(message):
+        text = font.render(message, True, (255, 255, 255))
+        text_loc = text.get_rect()
+        text_loc.center = width / 2, height / 2
+        screen.blit(text, text_loc)
+        pygame.display.update()
 
 
     if car1_loc[0] == car2_loc[0] and car2_loc[1] > car1_loc[1] - 250:
@@ -80,6 +83,8 @@ while running:
         break
 
     if staying_on_the_road < 0 or staying_on_the_road > 1:
+        show_message("YOU ARE OFF THE ROAD!")
+        pygame.time.wait(600)
         game_over()
         break
 
