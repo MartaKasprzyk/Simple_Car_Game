@@ -42,6 +42,8 @@ text = font.render('GAME OVER', True, (255, 255, 255))
 text_loc = text.get_rect()
 text_loc.center = width / 2, height / 2
 
+game_over_sound = pygame.mixer.Sound("sound of your choice")
+
 while running:
     counter += 1
     if counter == 1000:
@@ -66,6 +68,7 @@ while running:
         screen.fill((0, 0, 0))
         screen.blit(text, text_loc)
         pygame.display.update()
+        game_over_sound.play()
         pygame.time.wait(600)
         print("GAME OVER!")
         break
