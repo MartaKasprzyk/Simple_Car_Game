@@ -25,6 +25,16 @@ car2 = pygame.image.load("car2.png")
 car2_loc = car2.get_rect()
 car2_loc.center = left_lane, height * 0.2
 
+rock = pygame.image.load("rock.png")
+rock_loc = rock.get_rect()
+rock_loc.center = width / 8, height * 0.8
+
+bush = pygame.image.load("bush.png")
+bush_loc = bush.get_rect()
+bush_loc1 = bush.get_rect()
+bush_loc.center = width * 0.9, height * 0.2
+bush_loc1.center = width * 0.9, height * 0.6
+
 counter = 0
 
 font = pygame.font.SysFont('arial', 36)
@@ -39,11 +49,18 @@ while running:
         counter = 0
         print("level up", speed)
     car2_loc[1] += speed
+    rock_loc[1] += speed
+    bush_loc[1] += speed
+    bush_loc1[1] += speed
     if car2_loc[1] > height:
         if random.randint(0, 1) == 0:
             car2_loc.center = right_lane, -200
+            rock_loc.center = width / 8, height * 0.2
         else:
             car2_loc.center = left_lane, -200
+            rock_loc.center = width / 8, height * 0.8
+            bush_loc.center = width * 0.9, -100
+            bush_loc1.center = width * 0.9, -300
 
     if car1_loc[0] == car2_loc[0] and car2_loc[1] > car1_loc[1] - 250:
         screen.fill((0, 0, 0))
@@ -62,11 +79,16 @@ while running:
             if event.key in [K_d, K_RIGHT]:
                 car1_loc = car1_loc.move([int(road_width / 2), 0])
 
+    pygame.draw.rect(screen, (128, 255, 128), (width / 4 - road_width / 2, 0, road_width, height))
+    pygame.draw.rect(screen, (128, 255, 128), (width / 4 + road_width / 2, 0, road_width, height))
     pygame.draw.rect(screen, (50, 50, 50), (width / 2 - road_width / 2, 0, road_width, height))
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 - roadmark / 2, 0, roadmark, height))
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_width / 2 + roadmark * 2, 0, roadmark, height))
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_width / 2 - roadmark * 3, 0, roadmark, height))
 
+    screen.blit(rock, rock_loc)
+    screen.blit(bush, bush_loc)
+    screen.blit(bush, bush_loc1)
     screen.blit(car1, car1_loc)
     screen.blit(car2, car2_loc)
     pygame.display.update()
